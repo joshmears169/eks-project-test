@@ -105,6 +105,11 @@ output "cluster_oidc_provider_arn" {
   value       = module.eks.oidc_provider_arn
 }
 
+output "alb_controller_irsa_role_arn" {
+  value       = module.eks.alb_controller_irsa_role_arn
+  description = "IRSA role ARN for AWS Load Balancer Controller ServiceAccount"
+}
+
 output "node_group_names" {
   description = "Names of EKS managed node groups."
   value       = module.eks.node_group_private_name
