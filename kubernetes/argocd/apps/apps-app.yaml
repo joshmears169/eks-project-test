@@ -8,8 +8,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: REPO_URL
-    targetRevision: part-a-eks-tf
+    repoURL: https://github.com/joshmears169/eks-project-test.git
+    targetRevision: section-1a-tf-and-k8s-argocd
     path: kubernetes/apps
   destination:
     server: https://kubernetes.default.svc

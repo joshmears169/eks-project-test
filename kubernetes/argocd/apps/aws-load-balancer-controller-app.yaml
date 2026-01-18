@@ -14,8 +14,8 @@ spec:
       helm:
         valueFiles:
           - $values/kubernetes/argocd/values/addons-values.yaml
-    - repoURL: REPO_URL
-      targetRevision: part-a-eks-tf
+    - repoURL: https://github.com/joshmears169/eks-project-test.git
+      targetRevision: section-1a-tf-and-k8s-argocd
       ref: values
   destination:
     server: https://kubernetes.default.svc

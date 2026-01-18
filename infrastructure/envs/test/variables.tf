@@ -22,7 +22,7 @@ variable "owner" {
 variable "repository" {
   description = "Repository name for tagging/audits."
   type        = string
-  default     = "eks-project"
+  default     = "eks-project-test"
 }
 
 variable "bootstrap_admin_principal_arn" {
