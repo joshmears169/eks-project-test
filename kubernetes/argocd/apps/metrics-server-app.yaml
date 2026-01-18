@@ -4,10 +4,9 @@ metadata:
   name: metrics-server
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
-
   source:
     repoURL: https://kubernetes-sigs.github.io/metrics-server/
     chart: metrics-server
@@ -18,14 +17,9 @@ spec:
         # needs --kubelet-insecure-tls to scrape metrics reliably.
         args:
           - --kubelet-insecure-tls
-
-        # Optional: keep it HA-ready (uncomment if you want)
-        # replicas: 2
-
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
-
   syncPolicy:
     automated:
       prune: true

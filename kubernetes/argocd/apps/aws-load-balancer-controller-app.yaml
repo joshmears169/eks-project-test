@@ -4,38 +4,22 @@ metadata:
   name: aws-load-balancer-controller
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
-
-  source:
-    repoURL: https://aws.github.io/eks-charts
-    chart: aws-load-balancer-controller
-    targetRevision: 1.17.1
-    helm:
-      parameters:
-        # Required values for the chart
-        - name: clusterName
-          value: "<CLUSTER_NAME>"
-        - name: region
-          value: "<AWS_REGION>"
-        - name: vpcId
-          value: "<VPC_ID>"
-
-        # Create the controller service account and annotate it for IRSA
-        - name: serviceAccount.create
-          value: "true"
-        - name: serviceAccount.name
-          value: "aws-load-balancer-controller"
-
-        # NOTE: escaping is important because the annotation key contains dots
-        - name: serviceAccount.annotations."eks\.amazonaws\.com/role-arn"
-          value: "<IRSA_ROLE_ARN>"
-
+  sources:
+    - repoURL: https://aws.github.io/eks-charts
+      chart: aws-load-balancer-controller
+      targetRevision: 1.17.1
+      helm:
+        valueFiles:
+          - $values/kubernetes/argocd/values/addons-values.yaml
+    - repoURL: REPO_URL
+      targetRevision: part-a-eks-tf
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
-
   syncPolicy:
     automated:
       prune: true

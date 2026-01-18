@@ -1,0 +1,9 @@
+clusterName: orders-platform-test-eks
+region: eu-west-2
+vpcId: vpc-xxxxxxxxxxxxxxxxx
+
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/orders-platform-test-irsa-alb-controller

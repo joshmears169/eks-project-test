@@ -43,6 +43,7 @@ terraform.rc
 secret.yaml
 secrets.yaml
 *-secret.yaml
+*alb-controller-values.yaml
 
 .DS_Store
 Thumbs.db
