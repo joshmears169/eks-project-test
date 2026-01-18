@@ -53,6 +53,11 @@ output "oidc_provider_arn" {
   value       = aws_iam_openid_connect_provider.oidc_provider.arn
 }
 
+output "alb_controller_irsa_role_arn" {
+  value       = aws_iam_role.irsa_alb_controller.arn
+  description = "IRSA role ARN for AWS Load Balancer Controller ServiceAccount"
+}
+
 output "cluster_security_group_id" {
   description = "The security group ID associated with the EKS cluster"
   value       = aws_eks_cluster.eks_cluster.vpc_config[0].cluster_security_group_id
