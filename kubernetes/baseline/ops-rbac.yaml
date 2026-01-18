@@ -1,0 +1,38 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ops-readonly
+  namespace: ops
+rules:
+  # Core “read-only” for common resources
+  - apiGroups: [""]
+    resources: ["pods","services","endpoints","configmaps","events","pods/log","namespaces"]
+    verbs: ["get","list","watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments","replicasets","statefulsets","daemonsets"]
+    verbs: ["get","list","watch"]
+  - apiGroups: ["batch"]
+    resources: ["jobs","cronjobs"]
+    verbs: ["get","list","watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses","networkpolicies"]
+    verbs: ["get","list","watch"]
+
+  # - apiGroups: [""]
+  #   resources: ["secrets"]
+  #   verbs: ["get","list","watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ops-readonly-binding
+  namespace: ops
+subjects:
+  # This "name" must match the username you map in aws-auth (or access entry).
+  - kind: User
+    name: opsuser
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: ops-readonly
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,54 @@
+# ---------- Terraform ----------
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.tflint.hcl
+*.terraform.tfstate.lock.info
+
+# Keep example tfvars files
+!*.tfvars.example
+!*.tfvars.json.example
+
+# Terraform CLI local config
+.terraformrc
+terraform.rc
+
+# ---------- Secrets / env files ----------
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+*.crt
+*.cer
+*.kubeconfig
+**/kubeconfig*
+
+# ---------- Kubernetes / Helm ----------
+**/charts/**/charts/
+**/charts/**/Chart.lock
+**/*.tgz
+.helm/
+**/.helm/
+secret.yaml
+secrets.yaml
+*-secret.yaml
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+.vscode/
+.idea/
+*.log
+out.txt

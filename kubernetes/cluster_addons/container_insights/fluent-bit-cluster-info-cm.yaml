@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-cluster-info
+  namespace: amazon-cloudwatch
+data:
+  cluster.name: "orders-platform-test-eks"
+  logs.region: "eu-west-2"
+  http.server: "On"
+  http.port: "2020"
+  read.head: "Off"
+  read.tail: "On"

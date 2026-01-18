@@ -1,0 +1,10 @@
+project = "orders-platform"
+env     = "test"
+region  = "eu-west-2"
+owner      = "platform-team"
+repository = "tech-test-eks-project"
+bootstrap_admin_principal_arn = "arn:aws:iam::123456789100:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_AdministratorAccess_c55b7bc560476fe6"
+
+tags = {
+  CostCenter = "Josh123"
+}
