@@ -33,8 +33,6 @@ resource "aws_iam_role" "irsa_alb_controller" {
 resource "aws_iam_policy" "alb_controller" {
   name        = "${local.prefix}-alb-controller-policy"
   description = "Permissions for AWS Load Balancer Controller (IRSA)"
-
-  # Option 1 (recommended): store policy JSON at infrastructure/modules/eks/policies/alb-controller.json
   policy = file("${path.module}/policies/alb-controller.json")
 }
 
