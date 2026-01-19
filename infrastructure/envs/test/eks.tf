@@ -11,8 +11,8 @@ module "eks" {
   private_subnet_ids = module.vpc.private_subnet_ids
 
   private_ec2_instance_types = ["m6i.2xlarge"] # Need at least 28GB memory peak for nodes  according to the brief, so have chosen a type with 32GB. Would normally stress test workload requirements to right-size this.
-  node_min_size       = 3 # Minimum nodes to achieve high availability and withstand an AZ failure
-  node_desired_size   = 6
+  node_min_size       = 9 # Minimum nodes to achieve high availability and withstand an AZ failure (see comments in architecture_desicion_record.md)
+  node_desired_size   = 9
   node_max_size       = 12
   node_disk_size      = 50
 

@@ -89,7 +89,8 @@ If you need to refresh an application after making changes to the YAML manifests
 kubectl -n argocd annotate application aws-load-balancer-controller argocd.argoproj.io/refresh=hard --overwrite
 
 You can also check the logs of an application's pods by running a command like the below:
-kubectl -n kube-system logs deploy/aws-load-balancer-controller --tail=80
+kubectl -n kube-system logs deploy/aws-load-balancer-controller -f --tail=80
+Remove the -f if you don't want to see the live logs.
 
 If you need to restart a deployment you can do a rolling update which will force new pods to be spun up and the old ones spun down. This is great for if you have updated IRSA permissions, have new config/values or just need to force a fresh reconcile:
 kubectl -n kube-system rollout restart deploy/aws-load-balancer-controller
