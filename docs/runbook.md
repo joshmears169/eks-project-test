@@ -2,7 +2,7 @@ NOTE: Can take up to 20 mins to create and up to 5 mins to destroy AWS infrastru
 
 Push the zipped repo to your GitHub
 
-Update the terraform.tfvars.example to the values you need and rename to terraform.tfvars. Don't worry about commiting it as it is ignored in the .gitignore file.
+Update the terraform.tfvars.example to the values you need and rename to terraform.tfvars.
 
 Pay close attention to the bootstrap_admin_principal_arn variable as that needs to be the role you are using for your AWS account which will be given EKS Cluster Admin permissions.
 
@@ -49,3 +49,33 @@ Then, if you have updated your alb-controller-values.yaml and kubernetes/cluster
 Then, bootstrap ArgoCD to sync your repo which will result in ArgoCD managing updates via GitOps from this point forward:
 
 kubectl apply -n argocd -f kubernetes/argocd/apps/root-app.yaml
+kubectl -n argocd annotate application root-app argocd.argoproj.io/refresh=hard --overwrite
+
+Then see if your apps are appearing:
+kubectl -n argocd get applications
+
+You should see the following apps:
+root-app
+baseline
+cluster-addons
+metrics-server
+aws-load-balancer-controller
+apps
+
+Validate each wave installed correctly:
+kubectl get ns
+kubectl -n ops get role,rolebinding
+
+Check the metrics-server
+kubectl top nodes
+kubectl top pods -A
+
+Check the AWS Load Balancer Controller is running:
+kubectl -n kube-system get deploy aws-load-balancer-controller
+kubectl get ingressclass
+
+kubectl -n apps get deploy,svc,ingress -o wide
+kubectl -n apps describe ingress order-processor
+You should see an ALB provisioned in your AWS account in the EC2 console under Load Balancers.
+Address should eventually show an ALB DNS name.
+
