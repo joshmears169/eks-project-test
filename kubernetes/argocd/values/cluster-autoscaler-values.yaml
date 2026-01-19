@@ -3,6 +3,8 @@ autoDiscovery:
 
 awsRegion: eu-west-2
 
+replicaCount: 2
+
 rbac:
   serviceAccount:
     create: false
@@ -12,3 +14,7 @@ extraArgs:
   balance-similar-node-groups: "true"
   skip-nodes-with-system-pods: "false"
   skip-nodes-with-local-storage: "false"
+  expander: "least-waste"
+
+nodeSelector:
+  kubernetes.io/os: linux
