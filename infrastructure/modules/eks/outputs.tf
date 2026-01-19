@@ -58,6 +58,11 @@ output "alb_controller_irsa_role_arn" {
   description = "IRSA role ARN for AWS Load Balancer Controller ServiceAccount"
 }
 
+output "cluster_autoscaler_irsa_role_arn" {
+  value       = aws_iam_role.irsa_cluster_autoscaler.arn
+  description = "IRSA role ARN for Cluster Autoscaler ServiceAccount"
+}
+
 output "cluster_security_group_id" {
   description = "The security group ID associated with the EKS cluster"
   value       = aws_eks_cluster.eks_cluster.vpc_config[0].cluster_security_group_id

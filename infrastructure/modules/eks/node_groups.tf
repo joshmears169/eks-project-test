@@ -37,7 +37,7 @@ resource "aws_eks_node_group" "eks_ng_private" {
 
   tags = merge(var.tags,
     { "Name" = "${local.prefix}-eks-ng-private" 
-      "k8s.io/cluster-autoscaler/enabled" = "true" ## Only required if using Cluster Autoscaler
+      "k8s.io/cluster-autoscaler/enabled" = "true" ## Required if we are using Cluster Autoscaler
       "k8s.io/cluster-autoscaler/${var.cluster_name}" = "owned"
     })
 

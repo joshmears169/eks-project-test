@@ -110,6 +110,11 @@ output "alb_controller_irsa_role_arn" {
   description = "IRSA role ARN for AWS Load Balancer Controller ServiceAccount"
 }
 
+output "cluster_autoscaler_irsa_role_arn" {
+  value       = module.eks.cluster_autoscaler_irsa_role_arn
+  description = "IRSA role ARN for Cluster Autoscaler ServiceAccount"
+}
+
 output "node_group_names" {
   description = "Names of EKS managed node groups."
   value       = module.eks.node_group_private_name

@@ -8,7 +8,7 @@ Pay close attention to the bootstrap_admin_principal_arn variable as that needs 
 
 Run Terraform in your AWS account
 
-Terraform outputs: clusterName/region/vpcId/albControllerRoleArn and others. Save these somewhere handy so you can enter them in the YAML manifests next.
+Terraform outputs: clusterName/region/vpcId/albControllerRoleArn/cluster_autoscaler_irsa_role_arn and others. Save these somewhere handy so you can enter them in the YAML manifests next.
 
 Now run the following command:
 aws eks update-kubeconfig --region eu-west-2 --name orders-platform-test-eks
@@ -18,8 +18,9 @@ kubectl get nodes
 
 Edit your "fork":
 
-kubernetes/argocd/values/alb-controller-values.yaml with the outputted values from the terraform run
-kubernetes/cluster_addons/aws_load_balancer_controller/serviceaccount.yaml with the ALB IRSA role arn outputted from the terraform run too.
+kubernetes/argocd/values/alb-controller-values.yaml with the outputted values from the terraform run.
+kubernetes/cluster_addons/aws_load_balancer_controller/serviceaccount.yaml with the ALB IRSA role arn and
+kubernetes/cluster_addons/cluster_autoscaler/serviceaccount.yaml with the Cluster Autoscaler IRSA role arn too.
 
 and ALL mentions of "repoURL" and "targetRevision" to point to your repo fork (can use find and replace to save some time!)
 

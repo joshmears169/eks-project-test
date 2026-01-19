@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - container_insights
   - aws_load_balancer_controller
+  - cluster_autoscaler
