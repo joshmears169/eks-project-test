@@ -1,15 +1,51 @@
+NOTE: Can take up to 20 mins to create and up to 5 mins to destroy AWS infrastructure.
+
 Push the zipped repo to your GitHub
 
 Update the terraform.tfvars.example to the values you need and rename to terraform.tfvars. Don't worry about commiting it as it is ignored in the .gitignore file.
 
+Pay close attention to the bootstrap_admin_principal_arn variable as that needs to be the role you are using for your AWS account which will be given EKS Cluster Admin permissions.
+
 Run Terraform in your AWS account
 
-Terraform outputs: clusterName/region/vpcId/roleArn and others
+Terraform outputs: clusterName/region/vpcId/albControllerRoleArn and others. Save these somewhere handy so you can enter them in the YAML manifests next.
+
+Now run the following command:
+aws eks update-kubeconfig --region eu-west-2 --name orders-platform-test-eks
+
+To test you can use kubectl on your EKS cluster now, use the following command to list your nodes:
+kubectl get nodes
 
 Edit your "fork":
 
 kubernetes/argocd/values/alb-controller-values.yaml with the outputted values from the terraform run
+kubernetes/cluster_addons/aws_load_balancer_controller/serviceaccount.yaml with the ALB IRSA role arn outputted from the terraform run too.
 
 and ALL mentions of "repoURL" and "targetRevision" to point to your repo fork (can use find and replace to save some time!)
 
-Apply root-app
+Now we have to do a one-time installation of ArgoCD manually with Helm.
+First create the namespace:
+kubectl create namespace argocd
+
+Then install ArgoCD with Helm:
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+helm install argocd argo/argo-cd `
+  --namespace argocd
+
+Wait a few seconds and then check the pods are running with:
+kubectl -n argocd get pods -w
+
+Run port forwarding command:
+kubectl port-forward service/argocd-server -n argocd 8080:443
+Then check you can visit the UI at http://localhost:8080
+
+To login you can use admin for username and for password you can retrieve this by running the following command:
+kubectl -n argocd get secret argocd-initial-admin-secret `
+  -o jsonpath="{.data.password}" | %{ [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) }
+
+Then, if you have updated your alb-controller-values.yaml and kubernetes/cluster_addons/aws_load_balancer_controller/serviceaccount.yaml with the terraform outputted values, you can commit and push the changes to the branch ArgoCD will track.
+
+Then, bootstrap ArgoCD to sync your repo which will result in ArgoCD managing updates via GitOps from this point forward:
+
+kubectl apply -n argocd -f kubernetes/argocd/apps/root-app.yaml

@@ -31,7 +31,7 @@ resource "aws_eks_addon" "kube_proxy" {
 }
 
 ##################################################
-##### EBS CSI Driver Add-on
+##### EBS CSI Driver Add-on - I've included it for an example of what you'd need when running stateful workloads and need persistent block storage as EBS volumes on your pods.
 ##################################################
 
 # This add-on reuqires an IRSA role.
