@@ -79,3 +79,18 @@ kubectl -n apps describe ingress order-processor
 You should see an ALB provisioned in your AWS account in the EC2 console under Load Balancers.
 Address should eventually show an ALB DNS name.
 
+You can then test the application is working by curling the ALB DNS name:
+curl http://<ALB_DNS_NAME>
+or visiting the address name in your browser.
+
+For this example, as we are using just the plain NGINX image, you should see the "Welcome to nginx!" screen.
+
+If you need to refresh an application after making changes to the YAML manifests, you can use the following command:
+kubectl -n argocd annotate application aws-load-balancer-controller argocd.argoproj.io/refresh=hard --overwrite
+
+You can also check the logs of an application's pods by running a command like the below:
+kubectl -n kube-system logs deploy/aws-load-balancer-controller --tail=80
+
+If you need to restart a deployment you can do a rolling update which will force new pods to be spun up and the old ones spun down. This is great for if you have updated IRSA permissions, have new config/values or just need to force a fresh reconcile:
+kubectl -n kube-system rollout restart deploy/aws-load-balancer-controller
+

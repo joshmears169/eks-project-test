@@ -5,7 +5,7 @@
 crash.log
 crash.*.log
 *.tfplan
-*.tfvars
+# *.tfvars
 *.tfvars.json
 override.tf
 override.tf.json
@@ -43,7 +43,7 @@ terraform.rc
 secret.yaml
 secrets.yaml
 *-secret.yaml
-*alb-controller-values.yaml
+# *alb-controller-values.yaml
 
 .DS_Store
 Thumbs.db
