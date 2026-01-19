@@ -115,6 +115,11 @@ output "cluster_autoscaler_irsa_role_arn" {
   description = "IRSA role ARN for Cluster Autoscaler ServiceAccount"
 }
 
+output "ops_readonly_role_arn" {
+  value = module.eks.ops_readonly_role_arn
+  description = "IAM Role ARN for read-only operations access to the cluster"
+}
+
 output "node_group_names" {
   description = "Names of EKS managed node groups."
   value       = module.eks.node_group_private_name

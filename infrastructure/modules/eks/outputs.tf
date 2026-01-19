@@ -63,6 +63,11 @@ output "cluster_autoscaler_irsa_role_arn" {
   description = "IRSA role ARN for Cluster Autoscaler ServiceAccount"
 }
 
+output "ops_readonly_role_arn" {
+  value = aws_iam_role.ops_readonly.arn
+  description = "IAM Role ARN for read-only operations access to the cluster"
+}
+
 output "cluster_security_group_id" {
   description = "The security group ID associated with the EKS cluster"
   value       = aws_eks_cluster.eks_cluster.vpc_config[0].cluster_security_group_id

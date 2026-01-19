@@ -44,6 +44,16 @@ variable "bootstrap_admin_principal_arn" {
   type        = string
 }
 
+variable "ops_user_arn" {
+  description = "ARN of the IAM user for read-only operations access to the cluster"
+  type        = string
+}
+
+variable "ops_source_ip_cidr" {
+  description = "IP address of the IAM user to restrict read-only IAM role to for EKS read-only permissions in the ops namespace"
+  type = string
+}
+
 variable "cluster_service_ipv4_cidr" {
   description = "service ipv4 cidr for the kubernetes cluster - NOT PODs CIDR"
   type        = string
