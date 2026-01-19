@@ -4,7 +4,6 @@ metadata:
   name: ops-readonly
   namespace: ops
 rules:
-  # Core “read-only” for common resources
   - apiGroups: [""]
     resources: ["pods","services","endpoints","configmaps","events","pods/log","namespaces"]
     verbs: ["get","list","watch"]
@@ -28,10 +27,9 @@ metadata:
   name: ops-readonly-binding
   namespace: ops
 subjects:
-  # This "name" must match the username you map in aws-auth (or access entry).
-  - kind: User
-    name: opsuser
-    apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: ops-readonly
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
   name: ops-readonly

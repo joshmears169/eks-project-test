@@ -4,6 +4,8 @@ module "eks" {
   prefix       = local.name_prefix
   cluster_name = local.cluster_name
   bootstrap_admin_principal_arn = var.bootstrap_admin_principal_arn
+  ops_user_arn = local.ops_user_arn
+  ops_source_ip_cidr = local.ops_source_ip_cidr
 
   incoming_orders_bucket_name = var.incoming_orders_bucket_name
 
