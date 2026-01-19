@@ -3,7 +3,5 @@ region: eu-west-2
 vpcId: vpc-0d42756b8a0829615
 
 serviceAccount:
-  create: true
+  create: false
   name: aws-load-balancer-controller
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::389595560167:role/orders-platform-test-irsa-alb-controller
