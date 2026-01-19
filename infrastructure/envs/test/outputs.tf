@@ -115,6 +115,11 @@ output "cluster_autoscaler_irsa_role_arn" {
   description = "IRSA role ARN for Cluster Autoscaler ServiceAccount"
 }
 
+output "order_processor_irsa_role_arn" {
+  value = module.eks.order_processor_irsa_role_arn
+  description = "IRSA role ARN for order processor ServiceAccount"
+}
+
 output "node_group_names" {
   description = "Names of EKS managed node groups."
   value       = module.eks.node_group_private_name

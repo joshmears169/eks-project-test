@@ -33,6 +33,11 @@ variable "private_ec2_instance_types" {
   default     = ["t3.small"]
 }
 
+variable "incoming_orders_bucket_name" {
+  type        = string
+  description = "S3 bucket containing incoming orders"
+}
+
 variable "cluster_name" {
   description = "Name of the EKS cluster. Also used as a prefix in names of related resources."
   type        = string

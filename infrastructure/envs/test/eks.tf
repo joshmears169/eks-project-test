@@ -5,6 +5,8 @@ module "eks" {
   cluster_name = local.cluster_name
   bootstrap_admin_principal_arn = var.bootstrap_admin_principal_arn
 
+  incoming_orders_bucket_name = var.incoming_orders_bucket_name
+
   cluster_version = "1.32"
 
   vpc_id             = module.vpc.vpc_id

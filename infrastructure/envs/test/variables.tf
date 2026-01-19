@@ -30,6 +30,11 @@ variable "bootstrap_admin_principal_arn" {
   type        = string
 }
 
+variable "incoming_orders_bucket_name" {
+  type        = string
+  description = "S3 bucket containing incoming orders"
+}
+
 variable "tags" {
   description = "Extra tags to apply to all AWS resources supplied by caller."
   type        = map(string)

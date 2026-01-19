@@ -4,6 +4,7 @@ region  = "eu-west-2"
 owner      = "platform-team"
 repository = "eks-project-test"
 bootstrap_admin_principal_arn = "arn:aws:iam::389595560167:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_AdministratorAccess_c55b7bc560476fe6"
+incoming_orders_bucket_name = "orders-platform-incoming-orders-test"
 
 tags = {
   CostCenter = "Josh123"
